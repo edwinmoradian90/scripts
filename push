@@ -1,0 +1,24 @@
+#! /bin/bash
+
+commit=$1
+location=$2
+
+git add .
+
+if [ $commit ]
+then 
+    git commit $commit 
+else
+    echo "Commit message: "
+    read commit 
+    git commit $commit
+fi
+
+if [ $location ]
+then
+    git push $location
+else 
+    echo "Branch name: "
+    read location
+    git push $location
+fi

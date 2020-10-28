@@ -1,0 +1,7 @@
+#! /bin/bash
+
+dir=${PWD##*/}
+if [ ! "$(ls -A ./)" ]
+then
+    cd .. && rmdir ./$dir
+fi
