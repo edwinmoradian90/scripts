@@ -12,7 +12,7 @@ then
         if [ "$dir" == "$input" ]; then 
             break 
         fi
-        if [ "$count" -gt 4 ]
+        if [ "$count" -gt 6 ]
         then 
             echo "Could not find relative path"
             cd "$current_dir" || exit
