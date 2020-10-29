@@ -5,14 +5,13 @@ user=$2
 repo=$3
 
 if [ "$flag" == "--user" ] || [ "$flag" == "-u" ]; then
-    if [ -z "$user" ]; then
-        echo "User: "
-        read -r user 
-    fi
-    if [ -z "$repo" ]; then
-        echo "Repo: "
+    if [ $# -lt 3 ]; then
+        printf "The user flag was called. You must include both user and repo.\n"
+        printf "User: "
+        read -r user
+        printf "Repo: "
         read -r repo
-    fi 
+    fi
 else 
     repo=$1 
     user="edwinmoradian90"   
