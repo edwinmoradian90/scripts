@@ -1,0 +1,25 @@
+#! /bin/bash 
+
+component_name=$1
+
+if [ $# -lt 1 ]; then
+    pritnf "Component name: "
+    read -r component_name
+fi 
+
+for component_name in "$@"; do
+    echo "React class component '$component_name' generated."
+    printf "import React, { Component } from 'react'
+
+class %s extends Component {
+    render() {
+        return (
+            <div className='%s'>
+                %s
+            </div>
+        )    
+    }
+} 
+
+export default %s" "$component_name" "$component_name" "$component_name" "$component_name">> "$component_name".jsx
+done
