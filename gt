@@ -1,0 +1,25 @@
+#! /bin/bash
+
+input=$1
+dir=${PWD##*/}
+if [ -n "$input" ]
+then 
+    count=0
+    while [ "$dir" != "$input" ]
+    do
+        dir=${PWD##*/}
+        if [ "$dir" == "$input" ]; then 
+            break 
+        fi
+        if [ "$count" -gt 4 ]
+        then 
+            echo "Could not find relative path"
+            cd || exit
+            break
+        else 
+            cd .. || exit
+            count=$((count+1))
+        fi
+    done
+fi
+
