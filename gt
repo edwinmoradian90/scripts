@@ -2,6 +2,7 @@
 
 input=$1
 dir=${PWD##*/}
+current_dir=${PWD}
 if [ -n "$input" ]
 then 
     count=0
@@ -14,7 +15,7 @@ then
         if [ "$count" -gt 4 ]
         then 
             echo "Could not find relative path"
-            cd || exit
+            cd "$current_dir" || exit
             break
         else 
             cd .. || exit
