@@ -1,0 +1,22 @@
+#! /bin/bash
+
+flag=$1
+user=$2
+repo=$3
+
+if [ "$flag" == "--user" ] || [ "$flag" == "-u" ]; then
+    if [ -z "$user" ]; then
+        echo "User: "
+        read -r user 
+    fi
+    if [ -z "$repo" ]; then
+        echo "Repo: "
+        read -r repo
+    fi 
+else 
+    repo=$1 
+    user="edwinmoradian90"   
+fi
+git clone https://github.com/"$user"/"$repo"
+
+
