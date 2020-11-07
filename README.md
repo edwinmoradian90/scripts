@@ -161,7 +161,7 @@ gb 4
 
 The command above will take you back four directories, resulting in a new a path: this/is
 
-# I will doucment the rest soon...
+# I will document the rest soon...
 
 
 
