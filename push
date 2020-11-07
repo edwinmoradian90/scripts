@@ -1,24 +1,25 @@
 #! /bin/bash
 
-commit=$1
-location=$2
+commit="$1"
+location="$2"
 
 git add .
 
-if [ $commit ]
+if [ "$commit" ]
 then 
-    git commit $commit 
+    git commit -m "$commit" 
 else
     echo "Commit message: "
+    location="$1"
     read commit 
-    git commit $commit
+    git commit -m "$commit"
 fi
 
-if [ $location ]
+if [ "$location" ]
 then
-    git push $location
+    git push origin "$location"
 else 
     echo "Branch name: "
     read location
-    git push $location
+    git push origin "$location"
 fi

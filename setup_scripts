@@ -1,0 +1,19 @@
+#! /bin/bash
+
+pwd="$PWD"
+printf "Is this the final location of the scripts directory? (y/n): "
+read user_input
+
+if [ "$user_input" == 'y' ]; then
+    echo "export PATH=\"$pwd:\$PATH"\" >> ~/.bashrc
+    echo "alias gb=\". gb\"" >> ~/.bashrc
+    echo "alias gt=\". gt\"" >> ~/.bashrc
+    echo "alias mdcd=\". mdcd\"" >> ~/.bashrc
+    echo "alias rdcd=\". rdcd\"" >> ~/.bashrc
+    source ~/.bashrc
+    echo "Adding path to bashrc."
+else 
+    printf "Move the directory to your preferred location and run the setup again.\n"
+fi
+printf "Done.\n"
+
