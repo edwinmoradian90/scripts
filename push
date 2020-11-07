@@ -21,5 +21,10 @@ then
 else 
     echo "Branch name: "
     read location
-    git push origin "$location"
+    if [ -z "$location" ];then 
+        echo "Branch was left empty. Defaulting to master branch."
+        git push origin master
+    else
+        git push origin "$location"
+    fi
 fi
