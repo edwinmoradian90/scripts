@@ -121,7 +121,7 @@ Again, just more of a QOL thing than anything.
 ### gt 
 
 This is probably one of my most used commands so far. The gt, or "go to", command is very useful for traversing back to a parent 
-folder in your current working directory. Sometimes, you will need to traverse back three or more folders, and the way that is done now is like this: 
+folder in your current path. Sometimes, you will need to traverse back three or more folders, and the way that is done now is like this: 
 
 ```bash
 cd ../../../../
@@ -130,14 +130,14 @@ cd ../../../../
 
 This might not seem so bad at first, but over time, like the sound of a dripping faucet, it will drive you insane.
 Instead of doing this, with the gt command, you can simply provide it with the name of the directory you would like to go to. 
-If the directory exists and is in your current working directory, it will take you there, if not, it will return an error.
+If the directory exists and is in your current path, it will take you there, if not, it will return an error.
 
 ```bash
 gt somedir
 
 ```
 
-For example, if your current working directory looks like this: this/is/some/path/im/in, you can use the gt command to go back to
+For example, if your current path looks like this: this/is/some/path/im/in, you can use the gt command to go back to
 anyone of the directories in the path.
 
 ```bash
