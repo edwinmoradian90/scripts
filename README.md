@@ -145,7 +145,7 @@ gt is
 
 ```
 
-The command above will result in a current working directory changing to: this/is.
+The command above will result in your current path changing to: this/is.
 
 # gb 
 
