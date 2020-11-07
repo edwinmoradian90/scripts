@@ -26,14 +26,14 @@ Finally, while in the scripts directory, run the scripts setup.
 ```
 
 This will setup up your bashrc to include the scripts directory into your path and include required aliases.
-After setup is completed, open a new terminal and you should be ready to go.
+After the setup is completed, open a new terminal and you should be ready to go.
 
 # Commands
 
 ### clone
 
 The point of the clone command is to save time cloning a repo from GitHub. 
-When I setup a new distro or setup a new computer, I find myself cloning the scripts and documents that I normally clone, 
+When I setup a new distro or computer, I find myself cloning the scripts and documents that I normally clone, 
 so having to retype the same url five or more times can be a pain. 
 
 The clone command can take two optional arguments, a commit message and a branch.
@@ -72,13 +72,13 @@ push
 
 ```
 
-The latter will prompt you input the missing information in the terminal, while the former will just make the changes.
+The latter will prompt you to input the missing information in the terminal, while the former will just make the changes.
 
 ### mdcd
 
-The mdcd command is a very simple command that simply creates a directory and cds into the directory you just created. 
-The issue with doing this with the regular mkdir command is that you would always have to write an extra command after the creating the directory, 
-which could did not auto-complete mind you.
+The mdcd command is a very simple command that creates a directory and cds into it. 
+The issue with doing this with the regular mkdir command is, you would always have to write an extra command after the creating a directory, 
+which could not auto-complete, by the way.
 
 Before you would have to do this:
 
@@ -120,5 +120,48 @@ Again, just more of a QOL thing than anything.
 
 ### gt 
 
-This is probably one of my most used commands so far. The gt, or "go to", command is very useful for traversing back to a parent folder.
+This is probably one of my most used commands so far. The gt, or "go to", command is very useful for traversing back to a parent 
+folder in your current working directory. Sometimes, you will need to traverse back three or more folders, and the way that is done now is like this: 
+
+```bash
+cd ../../../../
+
+```
+
+This might not seem so bad at first, but over time, like the sound of a dripping faucet, it will drive you insane.
+Instead of doing this, with the gt command, you can simply provide it with the name of the directory you would like to go to. 
+If the directory exists and is in your current working directory, it will take you there, if not, it will return an error.
+
+```bash
+gt somedir
+
+```
+
+For example, if your current working directory looks like this: this/is/some/path/im/in, you can use the gt command to go back to
+anyone of the directories in the path.
+
+```bash
+gt is
+
+```
+
+The command above will result in a current working directory changing to: this/is.
+
+# gb 
+
+Like the gt command, the gb, or "go back", command is meant to help you traverse back in your current path. 
+The difference with the gb command is, you can pass it an integer number, and it will go back that many directories.
+
+Consider a path: this/is/some/path/im/in
+
+```bash
+gb 4
+
+```
+
+The command above will take you back four directories, resulting in a new a path: this/is
+
+# I will doucment the rest soon...
+
+
 
