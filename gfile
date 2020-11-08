@@ -1,0 +1,42 @@
+#!/bin/bash
+
+main () {
+    wget=$(which wget)
+    inputs=()
+    fields=('User' 'Repo' 'Branch' 'Filename')
+    loop_length=$((${#fields[@]} - 1))
+
+    printf "Press ctrl + c to exit. \n\n"
+
+    require_wget () {
+        if [ -z ["$wget"] ];then 
+            echo "Installing missing dependencies"
+            sudo apt install wget
+        fi 
+    }
+
+    get_user_input () {
+        input=""
+        for i in $(seq 0 $loop_length); do 
+            printf "${fields[i]}: "
+            read input
+            while [ -z "$input" ];do
+                printf "%s is required: " "${fields[i]}"
+                read input
+            done
+            inputs[i]="$input"
+        done
+    }
+
+    fetch_file () {
+        printf "Fetching %s from %s.\n\n" "${inputs[3]}" "${inputs[1]}"
+        wget https://raw.githubusercontent.com/"${inputs[0]}"/"${inputs[1]}"/"${inputs[2]}"/"${inputs[3]}"
+        echo "Done."
+    }
+
+    require_wget
+    get_user_input
+    fetch_file
+}
+
+main
