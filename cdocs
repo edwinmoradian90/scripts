@@ -1,0 +1,70 @@
+#! /bin/bash 
+
+main () {
+
+    input=""
+    quit=false
+
+    show_header () {
+        echo "Welcome to C docs. Input a command or a function to begin."
+        echo "Enter 'quit' to exit the application."
+        echo "======================================"
+    }
+
+    get_input () {
+        while [ "$quit" = false ]; do
+            printf ">>> "
+            read input
+            clear
+            show_header
+            parse
+        done
+    }
+
+    parse () {
+        case "$input" in 
+            "quit")
+                clear
+                quit=true
+                ;;
+            "calloc") 
+                printf "\nLike malloc, the calloc, or contiguous memory allocation, function allocations memory from heap memory, and \n"
+                printf "returns a pointer which points the the address of the new memory. However, the difference is that calloc takes \n"
+                printf "two arguments, rather than one like malloc, and it creates blocks of memory that are user specified. \n\n"
+                printf "The first argument is the number of elements to be allocated, and the second argument is the size of the elements.\n"
+                printf "Once the memory is allocated, calloc will return a pointer with the address of the first block in the heap memory.\n\n"
+                ;;
+            "free")
+                printf "\n The free command is required to free any memory that is not required or in use. It requires a pointer to work.\n\n"
+                ;;
+            "malloc")
+                printf "\nThe malloc, or memory allocation, function in C is a memory allocator which provides memory from the heap. \n"
+                printf "The amount of memory that can be allocation is passed into the function as an argument. A pointer is returned \n" 
+                printf "with the address of the beginning of the newly allocated memory. \n\n"
+                printf "\nMemory created with malloc will not be initialized with any values. The memory can be set with values later\n"
+                printf "with a function called memset.\n\n"
+                ;;
+            "realloc")
+                printf "\nThe realloc command attempts to resize a previously allocated block of memory. It takes two arguments, the pointer\n"
+                printf "pointing to the previously allocated block of memory, and the new size of the block.\n\n"
+                ;;
+            "strcat")
+                printf "\nThe strcat function appends the string pointed to by the second argument, src, to the end of the string provided\n"
+                printf "by the first argument, dest. The concatenation of the two strings does not include a white space in between.\n\n"
+                ;;
+            "strcpy")
+                printf "\nThe strcpy function copies a string to a destination. It takes two arguments, dest and src. The string pointed to\n"
+                printf "by src, the second argument, will be copied to dest, the first argument.\n\n"
+        esac
+    }
+
+    start () {
+        clear
+        show_header
+        get_input
+    }
+
+    start
+}
+
+main
