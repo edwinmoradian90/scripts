@@ -35,12 +35,16 @@ main () {
                 printf "Once the memory is allocated, calloc will return a pointer with the address of the first block in the heap memory.\n\n"
                 ;;
             "free")
-                printf "\n The free command is required to free any memory that is not required or in use. It requires a pointer to work.\n\n"
+                printf "\nThe free command is required to free any memory that is not required or in use. It requires a pointer to work.\n\n"
+                ;;
+            "isalnum")
+                printf "\nThe isalnum() function checks whether the argument passed is an alphanumeric character (alphabet or number) or not.\n"
+                printf "It returns 1 if the argument is alphanumeric and 0 if it is not.\n\n"
                 ;;
             "malloc")
-                printf "\nThe malloc, or memory allocation, function in C is a memory allocator which provides memory from the heap. \n"
-                printf "The amount of memory that can be allocation is passed into the function as an argument. A pointer is returned \n" 
-                printf "with the address of the beginning of the newly allocated memory. \n\n"
+                printf "\nThe malloc, or memory allocation, function in C is a memory allocator which provides memory from the heap.\n"
+                printf "The amount of memory that can be allocation is passed into the function as an argument. A pointer is returned\n" 
+                printf "with the address of the beginning of the newly allocated memory.\n\n"
                 printf "\nMemory created with malloc will not be initialized with any values. The memory can be set with values later\n"
                 printf "with a function called memset.\n\n"
                 ;;
@@ -55,6 +59,10 @@ main () {
             "strcpy")
                 printf "\nThe strcpy function copies a string to a destination. It takes two arguments, dest and src. The string pointed to\n"
                 printf "by src, the second argument, will be copied to dest, the first argument.\n\n"
+                ;;
+            *)
+                printf "\nThe query you are looking for cannot be found or does not exist.\n\n"
+                ;;
         esac
     }
 
