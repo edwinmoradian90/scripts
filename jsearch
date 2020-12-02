@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+
+import pyperclip
+import sys
+import os
+
+p_options = {
+    "default": "What would you like to do?",
+    "links": {
+        "copied": "The link has been copied.",
+        "link": "Which link would you like to copy?"
+    },
+    "quit": "\nClosing jsearch.",
+    "is_empty": "This field cannot be empty.",
+    "no_match": "The option you requested does not exist."
+}
+
+state = {
+    "current_option": None
+}
+
+def set_current_option(user_input):
+    state["current_option"] = user_input
+
+def clear_current_option():
+    state["current_option"] = None
+
+def show_typeline():
+    current_selection = ["quit", "links", "clear"]
+    if state["current_option"] not in current_selection:
+        sys.stdout.write("> ")
+    else:
+        sys.stdout.write(">> ")
+
+def to_clipboard(item):
+    pyperclip.copy(item)
+    pyperclip.paste()
+
+def logger(key_one, key_two=""):
+    if key_two:
+        print('\033[1m' + p_options[key_one][key_two] + '\n')
+    else:
+        print('\033[1m' + p_options[key_one] + '\n')
+
+def reset():
+    clear_current_option()
+    logger("default")
+    show_typeline()
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+input_options = {
+    "return": reset,
+    "clear": cls,
+    "quit": ["q", "Q", "quit", "Quit"],
+    "links": { 
+        "portfolio": "https://portfolio-2fb13.web.app/",
+        "linkedin": "https://linkedin.com/in/edwin-moradian",
+        "github": "https://github.com/edwinmoradian90",
+        "fullname": "Edwin Moradian",
+        "firstname": "Edwin",
+        "lastname": "Moradian",
+        "email": "edwin.moradian90@gmail.com",
+    }
+}
+
+def get_user_input():
+    user_input = input()
+    return user_input
+
+def is_quitting(user_input):
+    if user_input in input_options["quit"]:
+        return True
+
+def is_empty(user_input):
+    if not user_input:
+        return True
+
+def is_not_matching(user_input):
+    if user_input in input_options:
+        logger("no_match")
+        prompt_user()
+        return True
+
+def links_option():
+    logger("links","link")
+    show_typeline()
+    links_input = get_user_input()
+    set_current_option(links_input)
+    if is_quitting(links_input):
+        logger("quit");
+        return
+    elif is_empty(links_input):
+        logger("is_empty")
+        prompt_user()
+    
+    elif links_input in input_options["links"]:
+        link = input_options["links"][links_input]
+        to_clipboard(link)
+        print(f'\n{link}')
+        logger("links","copied")
+        prompt_user()
+    else:
+        logger("no_match")
+        prompt_user()
+
+def all_options(user_input):
+    set_current_option(user_input)
+    if is_quitting(user_input):
+        logger("quit");
+        return
+    elif is_empty(user_input):
+        logger("is_empty")
+        prompt_user()
+    
+    elif user_input in input_options:
+        if user_input == "links":
+            links_option()
+        elif user_input == "clear":
+            cls()
+            prompt_user()
+    else:
+        logger("no_match")
+        prompt_user()
+
+def prompt_user(user_input=""):
+    reset()
+    if not user_input:
+        user_input = get_user_input()
+
+    all_options(user_input)
+
+def main():
+    prompt_user();
+
+main();
+
+
