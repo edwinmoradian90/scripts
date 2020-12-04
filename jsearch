@@ -4,26 +4,151 @@ import pyperclip
 import sys
 import os
 
+
 p_options = {
     "default": "What would you like to do?",
     "links": {
-        "copied": "The link has been copied.",
-        "link": "Which link would you like to copy?"
+        "copied": "The link has been copied!",
+        "link": "Which link would you like to copy?",
+        "confirm": "Copy? [y/n]",
+        "start_alert": "COPYING LINKS!"
+    },
+    "summary": {
+        "my_name": "Enter your name if not already set. ",
+        "person_name": "Enter person name, if available. ",
+        "company_name": "Enter company name.",
+        "dev_tools": "Enter tools used. Be sure to separate each with a comma.",
+        "position": "Enter the position applied for.",
+        "value_exists": "Value detected for this field. Skipping user input. To change defaults, type 'reset defaults'.",
+        "confirm": "Is this okay? [y/n]",
+        "reset": "Reseting summary.",
+        "copied": "\nThe summary has been copied to the clipboard!",
+        "start_alert": "STARTING SUMMARY!"
     },
     "quit": "\nClosing jsearch.",
     "is_empty": "This field cannot be empty.",
-    "no_match": "The option you requested does not exist."
+    "no_match": "The option you requested does not exist.",
+    "valid_entry": "Enter a valid entry",
 }
 
+def reset():
+    clear_current_option()
+    logger("default")
+    show_typeline()
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
 state = {
-    "current_option": None
+    "args": sys.argv,
+    "number_of_args": len(sys.argv),
+    "current_option": None,
+    "return": reset,
+    "clear": cls,
+    "response": ["y", "n", "yes", "no"],
+    "quit": ["q", "Q", "quit", "Quit"],
+    "links": { 
+        "portfolio": "https://portfolio-2fb13.web.app/",
+        "linkedin": "https://linkedin.com/in/edwin-moradian",
+        "github": "https://github.com/edwinmoradian90",
+        "fullname": "Edwin Moradian",
+        "firstname": "Edwin",
+        "lastname": "Moradian",
+        "email": "edwin.moradian90@gmail.com",
+        "number": "+1 (323) 622-1942",
+        "city": "Yerevan",
+        "country": "Armenia"
+    },
+    "summary": {
+        "my_name": "Edwin",
+        "person_name": None,
+        "company_name": None,
+        "dev_tools": None,
+        "position": None
+    },
 }
+
 
 def set_current_option(user_input):
     state["current_option"] = user_input
 
 def clear_current_option():
     state["current_option"] = None
+
+def get_summary_text():
+    summary_text = """
+Hi {person_name}. 
+
+I'm {my_name}, and I'm a Web Developer with a background in Physics and Mathematics.
+I think I would be a good candidate for {company_name} because of my experience in {dev_tools}, and
+since it seems like this is the primary tech stack {company_name} uses, I feel it be would a 
+natural fit.
+
+For almost two years I've worked excusively as a remote developer working with teams and individuals
+from all over the globe. Our main stack was {dev_tools}, and we primarliy worked in an agile environment.
+
+Besides my development experience, my background in Physics and Mathematics has laid the groundwork for 
+my ability to quickly learn and solve complex problems.
+
+For these reasons, I think your {position} position is very interesting and would like to get to know more
+about {company_name} soon. If you'd like to get know more about me, please checkout my portfolio or connect
+with me directly.
+
+https://portfolio-2fb13.web.app/
+
+All the best,
+
+Ed
+""".format(
+        my_name=state["summary"]["my_name"],
+        person_name=state["summary"]["person_name"],
+        company_name=state["summary"]["company_name"],
+        dev_tools=state["summary"]["dev_tools"],
+        position=state["summary"]["position"],
+    )
+    print(summary_text)
+    return summary_text
+
+def confirm_summary():
+    logger("summary","confirm")
+    show_typeline()
+    user_input = get_user_input()
+    while user_input not in state["response"]:
+        logger("valid_entry")
+        show_typeline()
+        user_input = get_user_input()
+    return True if user_input == state["response"][0] else False
+
+def reset_summary():
+    for key in state["summary"]:
+        if key != "my_name":
+            state["summary"][key] = None
+    
+def set_summary():
+    for key in state["summary"]:
+        user_input = None
+        if state["summary"][key]:
+            logger("summary", "value_exists")
+        else:
+            while not user_input:
+                logger("summary", key, "", False)
+                show_typeline()
+                user_input = get_user_input()
+        
+            state["summary"][key] = user_input or state["summary"[key]]
+
+        user_input = None
+
+    summary = get_summary_text()
+    if confirm_summary():
+        to_clipboard(summary)
+        logger("summary", "copied")
+    else:
+        reset_summary()
+        cls()
+        logger("summary", "start_alert")
+        logger("summary", "reset")
+        set_summary()
 
 def show_typeline():
     current_selection = ["quit", "links", "clear"]
@@ -36,41 +161,24 @@ def to_clipboard(item):
     pyperclip.copy(item)
     pyperclip.paste()
 
-def logger(key_one, key_two=""):
+def logger(key_one, key_two="", passed_key="", use_print=True):
     if key_two:
-        print('\033[1m' + p_options[key_one][key_two] + '\n')
+        if use_print:
+            print('\033[1m' + p_options[key_one][key_two] + passed_key + '\n')
+        else: 
+            sys.stdout.write('\033[1m' + p_options[key_one][key_two] + passed_key + '\n')
     else:
-        print('\033[1m' + p_options[key_one] + '\n')
-
-def reset():
-    clear_current_option()
-    logger("default")
-    show_typeline()
-
-def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
-
-input_options = {
-    "return": reset,
-    "clear": cls,
-    "quit": ["q", "Q", "quit", "Quit"],
-    "links": { 
-        "portfolio": "https://portfolio-2fb13.web.app/",
-        "linkedin": "https://linkedin.com/in/edwin-moradian",
-        "github": "https://github.com/edwinmoradian90",
-        "fullname": "Edwin Moradian",
-        "firstname": "Edwin",
-        "lastname": "Moradian",
-        "email": "edwin.moradian90@gmail.com",
-    }
-}
+        if use_print:
+            print('\033[1m' + p_options[key_one] + passed_key + '\n')
+        else: 
+            sys.stdout.write('\033[1m' + p_options[key_one][key_two] + passed_key + '\n')
 
 def get_user_input():
     user_input = input()
     return user_input
 
 def is_quitting(user_input):
-    if user_input in input_options["quit"]:
+    if user_input in state["quit"]:
         return True
 
 def is_empty(user_input):
@@ -78,10 +186,34 @@ def is_empty(user_input):
         return True
 
 def is_not_matching(user_input):
-    if user_input in input_options:
+    if user_input in state:
         logger("no_match")
         prompt_user()
         return True
+
+def return_all_links():
+    for key in state["links"]:
+        logger("links", "confirm", " (" + key + ")", False)
+        show_typeline()
+        user_input = get_user_input()
+        while not user_input or user_input not in state["response"]:
+            logger("valid_entry")
+            show_typeline()
+            user_input = get_user_input()
+        
+        if user_input == state["response"][0] or user_input == state["response"][2]:
+            to_clipboard(state["links"][key])
+            logger("links", "copied")
+        else:
+            print(f"Skipping copying {key}")
+
+def return_all():
+    cls()
+    logger("links", "start_alert")
+    return_all_links()
+    cls()
+    logger("summary", "start_alert")
+    set_summary()
 
 def links_option():
     logger("links","link")
@@ -95,8 +227,8 @@ def links_option():
         logger("is_empty")
         prompt_user()
     
-    elif links_input in input_options["links"]:
-        link = input_options["links"][links_input]
+    elif links_input in state["links"]:
+        link = state["links"][links_input]
         to_clipboard(link)
         print(f'\n{link}')
         logger("links","copied")
@@ -114,11 +246,14 @@ def all_options(user_input):
         logger("is_empty")
         prompt_user()
     
-    elif user_input in input_options:
+    elif user_input in state:
         if user_input == "links":
             links_option()
         elif user_input == "clear":
             cls()
+            prompt_user()
+        elif(user_input == "summary"):
+            set_summary()
             prompt_user()
     else:
         logger("no_match")
@@ -131,9 +266,33 @@ def prompt_user(user_input=""):
 
     all_options(user_input)
 
+def parse_arguments():
+    args = state["args"]
+    number_of_args = state["number_of_args"]
+    if number_of_args == 2:
+        if args[1] == "summary":
+            set_summary()
+            return
+        if args[1] == "all":
+            return_all()
+            return
+        if state[args[1]]:
+            print(state[args[1]])
+        else: 
+            logger("no_match")
+    elif number_of_args == 3:
+        if state[args[1]][args[2]]:
+            info = state[args[1]][args[2]]
+            to_clipboard(info)
+            logger("links", "copied")
+            print(info)
+        else: 
+            logger("no_match")
+
 def main():
-    prompt_user();
+    if state["number_of_args"] > 1:
+        parse_arguments()
+    else: 
+        prompt_user()
 
-main();
-
-
+main()
