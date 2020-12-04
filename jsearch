@@ -271,6 +271,7 @@ def parse_arguments():
     number_of_args = state["number_of_args"]
     if number_of_args == 2:
         if args[1] == "summary":
+            logger("summary", "start_alert")
             set_summary()
             return
         if args[1] == "all":
@@ -281,6 +282,10 @@ def parse_arguments():
         else: 
             logger("no_match")
     elif number_of_args == 3:
+        if args[2] == "all" and args[1] == "links":
+            logger("links", "start_alert")
+            return_all_links()
+            return 
         if state[args[1]][args[2]]:
             info = state[args[1]][args[2]]
             to_clipboard(info)
