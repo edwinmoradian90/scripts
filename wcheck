@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /usr/local/lib/weather_check
+node app.js
