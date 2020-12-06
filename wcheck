@@ -1,4 +1,33 @@
 #!/bin/bash
 
-cd /usr/local/lib/weather_check
+DIR=/usr/local/lib/
+APP_NAME=below-zero
+URL="https://github.com/edwinmoradian90/below-zero"
+
+cd "$DIR"
+
+if [ ! -d "$DIR$APP_NAME" ]; then
+  echo "Installing dependencies."
+  if [ "$(which git)" ]; then
+    echo "Cloning repo."
+    sudo git clone "$URL"
+    sudo chown -R $(whoami) ./below-zero
+    cd below-zero
+    npm install --silent
+  else 
+    echo "Install git and rerun."
+  fi
+elif [ ! -d "$DIR$APP_NAME/node_modules" ]; then
+  printf "Installing dependencies.\n"
+  sudo chown -R $(whoami) ./below-zero
+  cd below-zero
+  npm install --silent
+  printf "Installation complete.\n"
+  printf "Starting application.\n\n"
+fi
+
+if [ "$PWD" != "$DIR$APP_NAME" ]; then
+  cd below-zero
+fi
+
 node app.js
