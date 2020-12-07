@@ -1,11 +1,16 @@
 #! /bin/bash
 
 component_name=$1
+component_ext="jsx"
 
 if [ $# -lt 1 ]; then
     printf "Component name: "
     read -r component_name
 fi 
+
+if [ "$(pkg-check typescript)" ]; then
+    component_ext="tsx"
+fi
 
 for component_name in "$@"; do
     echo "React functional component '$component_name' generated."
@@ -20,5 +25,5 @@ const %s = (props) => {
 } 
 
 export default %s
-    " "$component_name" "$component_name" "$component_name" "$component_name">> "$component_name".jsx
+    " "$component_name" "$component_name" "$component_name" "$component_name">> "$component_name"."$component_ext"
 done
