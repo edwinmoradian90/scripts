@@ -1,0 +1,57 @@
+#!/bin/bash 
+
+current_dirname="${PWD##*/}"
+basenames=("client" "frontend")
+basedir=false
+arg="$1"
+
+count=0
+
+function get_base_directory() {
+    while [ "$basedir" = false ]; do
+        if [ "$count" -lt 10 ]; then
+            for name in "${basenames[@]}"; do
+                if [ "$current_dirname" = "$name" ]; then
+                    basedir=true
+                fi
+            done
+            if [ ! "$basedir" = true ]; then
+                cd ..
+                current_dirname="${PWD##*/}"
+            fi
+            count=$(("$count"+1))
+        else 
+            break
+        fi
+    if [ "$count" -ge 10 ]; then
+        echo "Could not find package.json."
+    fi
+    done
+}
+
+function read_package_json() {
+    version=$(node -p "require('./package.json').devDependencies.$arg")
+    if [ "$version" = "undefined"  ]; then
+        echo "Doesn't exist."
+    else
+        echo "$arg exists in package.json"
+    fi
+}
+
+function main() {
+
+    if [ -z "$arg" ]; then
+        echo "You must include at least one argument."
+        return 1
+    fi
+    get_base_directory
+    if [ "$basedir" = true ]; then
+        read_package_json
+    else
+        return 1
+    fi
+
+    return 0
+}
+
+main

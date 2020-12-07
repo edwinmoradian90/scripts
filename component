@@ -3,22 +3,24 @@
 view="View"
 type="functional"
 
-for arg in "$@"
-do 
-    if [ "$arg" = "--class" ]  || [ "$arg" = "-c" ]; then
-        type="class"
-    fi
-done
+echo "$PWD"
 
-if [ "$#" > 1  ]; then
-    for arg in "$@"
-    do
-        mkdir "$arg" && cd "$arg"
-        if [ "$type" = "class" ]; then
-            rcc "$arg" "$arg$view"
-        else
-            rfc "$arg" "$arg$view"
-        fi
-        cd ..
-    done
-fi
+# for arg in "$@"
+# do 
+#     if [ "$arg" = "--class" ]  || [ "$arg" = "-c" ]; then
+#         type="class"
+#     fi
+# done
+
+# if [ "$#" > 1  ]; then
+#     for arg in "$@"
+#     do
+#         mkdir "$arg" && cd "$arg"
+#         if [ "$type" = "class" ]; then
+#             rcc "$arg" "$arg$view"
+#         else
+#             rfc "$arg" "$arg$view"
+#         fi
+#         cd ..
+#     done
+# fi
