@@ -30,8 +30,9 @@ function get_base_directory() {
 }
 
 function read_package_json() {
-    version=$(node -p "require('./package.json').devDependencies.$arg")
-    if [ "$version" = "undefined"  ]; then
+    version_one=$(node -p "require('./package.json').devDependencies.$arg")
+    version_two=$(node -p "require('./package.json').dependencies.$arg")
+    if [ "$version_one" = "undefined"  ] && [ "$version_two" = "undefined" ]; then
         echo "Doesn't exist."
     else
         echo "$arg exists in package.json"
