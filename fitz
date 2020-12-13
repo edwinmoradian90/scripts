@@ -1,0 +1,16 @@
+#!/bin/bash
+
+path="/usr/local/lib"
+app="/fitzgerald"
+current_path="$PWD"
+
+if [ ! -d "$path$app" ]; then
+  echo "Looks like fitz is not installed. You can install it by running the 'installer.sh' in the fitz folder."
+elif [ "$1" = "create" ] && [ ! -z "$2" ]; then
+  cd "$path$app"
+  node app.js "$current_path" "$1" "$2" 
+else 
+  echo "$current_path"
+  echo "I can't do much right now."
+  echo "Try 'fitz create <appname>' anywhere in your terminal."
+fi
