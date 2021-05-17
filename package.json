@@ -1,0 +1,15 @@
+{
+  "name": "scripts",
+  "version": "0.0.1",
+  "description": "Helpful scripts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwinmoradian90/scripts.git"
+  },
+  "author": "ed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/edwinmoradian90/scripts/issues"
+  },
+  "homepage": "https://github.com/edwinmoradian90/scripts#readme"
+}
