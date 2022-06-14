@@ -79,20 +79,13 @@ def get_summary_text():
     summary_text = """
 Hi {person_name}. 
 
-I'm {my_name}, and I'm a Web Developer with a background in Physics and Mathematics.
-I think I would be a good candidate for {company_name} because of my experience in {dev_tools}, and
-since it seems like this is the primary tech stack {company_name} uses, I feel it would be a 
-natural fit.
+I'm {my_name}, and I'm a Web Developer with a background in Physics and Mathematics. I think I would be a good candidate for {company_name} because of my experience in {dev_tools}, and since it seems like this is the primary tech stack {company_name} uses, I feel it would be a natural fit. 
 
-For almost two years I've worked exclusively as a remote developer working with teams and individuals
-from all over the globe. Our main stack was {dev_tools}, and we primarily worked in an agile environment.
+For more than three years I've worked exclusively as a remote developer working with teams and individuals from all over the globe, primarily in an agile environment.
 
-Besides my development experience, my background in Physics and Mathematics has laid the groundwork for 
-my ability to quickly learn and solve complex problems.
+Besides my development experience, my background in Physics and Mathematics has laid the groundwork for my ability to quickly learn and solve complex problems.
 
-For these reasons, I think your {position} position is very interesting and would like to get to know more
-about {company_name} soon. If you'd like to get to know more about me, please checkout my portfolio or connect
-with me directly.
+For these reasons, I think your {position} position is very interesting and would like to get to know more about {company_name} soon. If you'd like to get to know more about me, please checkout my portfolio or connect with me directly.
 
 https://portfolio-2fb13.web.app/
 
